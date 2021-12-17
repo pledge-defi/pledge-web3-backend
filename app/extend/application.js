@@ -1,13 +1,24 @@
 // app/extend/application.js
-const BAR = Symbol('Application#bar');
+const Web3 = require('web3');
+const WEB3 = Symbol('Application#web3');
+const PLEDGEPOOLCONTRACT = Symbol('Application#pledgePoolContract');
+
+const abi = require("../abis/PledgePool.json");
 
 module.exports = {
-//   get bar() {
-//     // this 就是 app 对象，在其中可以调用 app 上的其他方法，或访问属性
-//     if (!this[BAR]) {
-//       // 实际情况肯定更复杂
-//       this[BAR] = this.config.xx + this.config.yy;
-//     }
-//     return this[BAR];
-//   },
+  get web3() {
+    if (!this[WEB3]) {
+      let web3 = new Web3(Web3.givenProvider || "https://data-seed-prebsc-1-s1.binance.org:8545");
+      this[WEB3] = web3;
+    }
+    return this[WEB3];
+  },
+
+  get pledgePoolContract() {
+    if (!this[PLEDGEPOOLCONTRACT]) {
+      const contract = new this.web3.eth.Contract(abi, '0x08A5125C84C3DAb4834A28e73A35F4b6d895E7AA');
+      this[PLEDGEPOOLCONTRACT] = contract;
+    }
+    return this[PLEDGEPOOLCONTRACT];
+  }
 };
