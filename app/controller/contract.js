@@ -15,6 +15,10 @@ class ContracteController extends Controller {
       const dataInfo = await service.contract.dataInfo(index);
       const poolInfo = Object.assign(baseInfo, dataInfo);
       poolInfos.push(poolInfo);
+
+      // write to db
+      await ctx.model.poolbase.create(baseInfo);
+      await ctx.model.pooldata.create(dataInfo);
     }
 
     ctx.body = poolInfos;
