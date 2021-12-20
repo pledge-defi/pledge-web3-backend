@@ -8,4 +8,5 @@ module.exports = app => {
   router.get('/', controller.home.index);
 
   router.get('/poolinfo', controller.contract.pool_info);
+  router.post('/search', controller.contract.search)
 };

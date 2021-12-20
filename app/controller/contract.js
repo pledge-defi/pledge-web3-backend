@@ -19,6 +19,19 @@ class ContracteController extends Controller {
 
     ctx.body = poolInfos;
   }
+
+  // 查询 pool
+  async search() {
+    const { ctx, service } = this;
+    const { poolID, poolStatus, page, pageSize } = ctx.request.body;
+
+    const result = await ctx.service.pledgepool.search(poolID, poolStatus, page, pageSize);
+    if(!result) {
+        return ctx.setBody('5720', '查询PledgePool失败');
+    }
+
+    return ctx.setBody(200, '查询成功', result);
+  }
 }
 
 module.exports = ContracteController;
