@@ -28,10 +28,28 @@ module.exports = appInfo => {
     rpc: "https://data-seed-prebsc-1-s1.binance.org:8545",
   };
 
+ config.cluster = {
+        listen: {
+            path: '',
+            port: 7002,
+            hostname: '0.0.0.0',
+        },
+	};
+ config.security = {
+  xframe: {
+    enable: false,
+  },
+csrf: {
+            enable: false,
+            ignoreJSON: false
+        },
+};
   config.sequelize = {
+    username: 'root',
+    password: '',
     dialect: 'mysql',
     host: '127.0.0.1',
-    port: 9521,
+    port: '9521',
     database: 'pledge',
   };
 

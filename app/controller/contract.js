@@ -17,8 +17,8 @@ class ContracteController extends Controller {
       poolInfos.push(poolInfo);
 
       // write to db
-      await ctx.model.poolbase.create(baseInfo);
-      await ctx.model.pooldata.create(dataInfo);
+      await this.ctx.model.PoolBase.create(baseInfo);
+      await this.ctx.model.PoolData.create(dataInfo);
     }
 
     ctx.body = poolInfos;
@@ -26,15 +26,19 @@ class ContracteController extends Controller {
 
   // 查询 pool
   async search() {
+	  console.log('enter search');
     const { ctx, service } = this;
     const { poolID, poolStatus, page, pageSize } = ctx.request.body;
+
+	  console.log('zhTian body:', ctx.request.body);
 
     const result = await ctx.service.pledgepool.search(poolID, poolStatus, page, pageSize);
     if(!result) {
         return ctx.setBody('5720', '查询PledgePool失败');
     }
-
-    return ctx.setBody(200, '查询成功', result);
+	console.log('result :', result);
+    // ctx.body = (200, '查询成功', result);
+    ctx.body = result;
   }
 }
 
