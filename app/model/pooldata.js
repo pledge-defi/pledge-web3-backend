@@ -3,6 +3,7 @@ module.exports = app => {
 
   const PoolData = app.model.define('pooldata', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+    lendToken: STRING(100),
     settleAmountLend: STRING(30),
     settleAmountBorrow: STRING(30),
     finishAmountLend: STRING(30),

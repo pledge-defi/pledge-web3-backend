@@ -6,6 +6,28 @@ class PledgePoolService extends Service {
         const pageSize = step;
         const offset = curPage * pageSize;
 
+        const Op = this.app.Sequelize.Op;
+        const baseInfo = await this.ctx.model.poolbase.PoolBase.findAndCountAll({
+            where: {
+              lendToken: poolID,
+              state: poolStatus,
+            },
+            offset: offset,
+            limit : pageSize,
+        });
+        const totalNum = baseInfo.count;
+        const dataInfo = await this.ctx.model.poolbase.PoolData.findAndCountAll({
+            where: {
+              lendToken: poolID,
+            },
+            offset: offset,
+            limit : pageSize,
+
+        });
+        const poolInfo = Object.assign(baseInfo, dataInfo);
+
+        return {totalNum, poolInfo};
+
         // const Op = this.app.Sequelize.Op;
         //  const tps = await this.ctx.model.hoopics.Topic.findAndCountAll({
         //     attributes: ["id"],
