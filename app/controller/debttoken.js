@@ -4,9 +4,9 @@ const Controller = require('egg').Controller;
 
 class DebtTokenController extends Controller {
     async symbol() {
-      const { ctx } = this;
+      const { ctx, service } = this;
 
-      const symbol = await ctx.service.debt_token.symbol();
+      const symbol = await service.debttoken.symbol();
 
       ctx.body = symbol;
     }

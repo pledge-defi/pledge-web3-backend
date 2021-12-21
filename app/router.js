@@ -5,8 +5,12 @@
  */
 module.exports = app => {
   const { router, controller } = app;
+  const API = app.router.namespace('/api/v2');
+  
+  // test
+  API.get('/poolinfo', controller.contract.pool_info);
 
-  router.get('/poolinfo', controller.contract.pool_info);
-  router.post('/search', controller.contract.search);
-  router.post('/debt_token_symbol', controller.debt_token.symbol);
+  // post
+  API.post('/search', controller.contract.search);
+  API.post('/debt_token_symbol', controller.debttoken.symbol);
 };
