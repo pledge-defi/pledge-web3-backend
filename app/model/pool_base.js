@@ -11,7 +11,7 @@ module.exports = app => {
     lendSupply: STRING(100),
     borrowSupply: STRING(100),
     martgageRate: STRING(100),
-    lendToken: STRING(100),,
+    lendToken: STRING(100),
     borrowToken: STRING(100),
     state: STRING(30), // 'MATCH, EXECUTION, FINISH, LIQUIDATION, UNDONE'
     spCoin: STRING(100), 
