@@ -21,9 +21,9 @@ module.exports = app => {
     updated_at: DATE,
   });
 
-  PoolBase.prototype.associate = function() {
-    app.model.User.hasOne(app.model.PoolData, { as: 'pooldata' });
-  };
+  PoolBase.associate = function() {
+    app.model.PoolBase.hasOne(app.model.PoolData, { as: 'pooldata' });
+  }
 
   return PoolBase;
 };

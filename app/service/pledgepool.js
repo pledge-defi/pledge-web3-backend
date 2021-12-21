@@ -8,16 +8,21 @@ class PledgePoolService extends Service {
 
         const Op = this.app.Sequelize.Op;
         const baseInfo = await this.ctx.model.PoolBase.findAndCountAll({
+	    include: {
+	      model: this.ctx.model.PoolData,
+	      as: 'pooldata',
+	    },
             where: {
               lendToken: poolID,
-              //state: poolStatus,
+              state: poolStatus,
             },
             offset: offset,
             limit : pageSize,
         });
-	    console.log("searched baseinfo:", baseInfo);
+	console.log("searched baseinfo:", baseInfo);
         const totalNum = baseInfo.count;
-        const dataInfo = await this.ctx.model.PoolData.findAndCountAll({
+        /*
+	 * const dataInfo = await this.ctx.model.PoolData.findAndCountAll({
             where: {
               lendToken: poolID,
             },
@@ -25,57 +30,10 @@ class PledgePoolService extends Service {
             limit : pageSize,
 
         });
+	*/
         //Object.assign(baseInfo, dataInfo);
 
         return {totalNum, baseInfo};
-
-        // const Op = this.app.Sequelize.Op;
-        //  const tps = await this.ctx.model.hoopics.Topic.findAndCountAll({
-        //     attributes: ["id"],
-        //     include: {
-        //         model: this.ctx.model.hoopics.TopicAttributes,
-        //         as: 'topic_attributes',
-        //         attributes: ["id", "is_private", "is_deleted", "approve_status", "delete_by_admin"],
-        //         where: {
-        //             is_deleted: 0,
-        //             is_private: 0,
-        //             approve_status : 1,
-        //             delete_by_admin: 0,
-        //         }
-        //     },
-        //     where: {
-        //         [Op.or]: [
-        //             {
-        //                 tag: {
-        //                     [Op.substring]: tag
-        //                 }
-        //             },
-        //             {
-        //                 description: {
-        //                     [Op.substring]: tag
-        //                 }
-        //             }
-        //         ]
-        //     },
-        //     order:  [['updated_at', 'DESC']],
-
-        //     offset: offset,
-        //     limit : pageSize,
-        // });
-
-        // const totalNum = tps.count;
-        // const rows = tps.rows;
-        // for (let index = 0; index < rows.length; index++) { 
-        //     const item = rows[index];
-        //     ids.push(item.id);
-        // }
-
-        // const searchPhotos = await this.ctx.service.hoopics.topic.getPhotos(ids);
-        // if(!searchPhotos) return null;
-
-        // return {totalNum, searchPhotos};
-
-        return 0;
     }
 }
 

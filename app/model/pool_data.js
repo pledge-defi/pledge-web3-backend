@@ -3,6 +3,7 @@ module.exports = app => {
 
   const PoolData = app.model.define('pooldata', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+    pooldatum_id: INTEGER,
     settleAmountLend: STRING(30),
     settleAmountBorrow: STRING(30),
     finishAmountLend: STRING(30),
@@ -14,8 +15,8 @@ module.exports = app => {
   });
 
   PoolData.associate = function() {
-    app.model.PoolData.belongsTo(app.model.PoolBase, { as: 'poolbase', foreignKey: 'id' });
-  };
+    app.model.PoolData.belongsTo(app.model.PoolBase, { as: 'poolbase', foreignKey: 'pooldatum_id' });
+  }
 
   return PoolData;
 };

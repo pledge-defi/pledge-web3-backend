@@ -26,7 +26,6 @@ class ContracteController extends Controller {
 
   // 查询 pool
   async search() {
-	  console.log('enter search');
     const { ctx, service } = this;
     const { poolID, poolStatus, page, pageSize } = ctx.request.body;
 
