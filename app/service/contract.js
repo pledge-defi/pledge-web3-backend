@@ -39,7 +39,8 @@ class ContractService extends Service {
         obj['borrowSupply'] = info['borrowSupply'];
         obj['martgageRate'] = info['martgageRate'];
         obj['lendToken'] = info['lendToken'];
-        obj['state:'] = info['state:'];
+        obj['borrowToken'] = info['borrowToken'];
+        obj['state'] = info['state'];
         obj['spCoin'] = info['spCoin'];
         obj['jpCoin'] = info['jpCoin'];
         obj['autoLiquidateThreshold'] = info['autoLiquidateThreshold'];

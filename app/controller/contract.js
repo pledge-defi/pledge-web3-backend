@@ -30,13 +30,10 @@ class ContracteController extends Controller {
     const { ctx, service } = this;
     const { poolID, poolStatus, page, pageSize } = ctx.request.body;
 
-	  console.log('zhTian body:', ctx.request.body);
-
     const result = await ctx.service.pledgepool.search(poolID, poolStatus, page, pageSize);
     if(!result) {
         return ctx.setBody('5720', '查询PledgePool失败');
     }
-	console.log('result :', result);
     // ctx.body = (200, '查询成功', result);
     ctx.body = result;
   }
