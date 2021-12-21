@@ -11,7 +11,7 @@ module.exports = app => {
     lendSupply: STRING(100),
     borrowSupply: STRING(100),
     martgageRate: STRING(100),
-    lendToken: STRING(100),
+    lendToken: STRING(100),,
     borrowToken: STRING(100),
     state: STRING(30), // 'MATCH, EXECUTION, FINISH, LIQUIDATION, UNDONE'
     spCoin: STRING(100), 
@@ -20,6 +20,10 @@ module.exports = app => {
     created_at: DATE,
     updated_at: DATE,
   });
+
+  PoolBase.prototype.associate = function() {
+    app.model.User.hasOne(app.model.PoolData, { as: 'pooldata' });
+  };
 
   return PoolBase;
 };
