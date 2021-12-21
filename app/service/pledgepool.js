@@ -8,10 +8,10 @@ class PledgePoolService extends Service {
 
         const Op = this.app.Sequelize.Op;
         const baseInfo = await this.ctx.model.PoolBase.findAndCountAll({
-	    include: {
-	      model: this.ctx.model.PoolData,
-	      as: 'pooldata',
-	    },
+            include: {
+              model: this.ctx.model.PoolData,
+              as: 'pooldata',
+            },
             where: {
               lendToken: poolID,
               state: poolStatus,
@@ -19,20 +19,8 @@ class PledgePoolService extends Service {
             offset: offset,
             limit : pageSize,
         });
-	console.log("searched baseinfo:", baseInfo);
+
         const totalNum = baseInfo.count;
-        /*
-	 * const dataInfo = await this.ctx.model.PoolData.findAndCountAll({
-            where: {
-              lendToken: poolID,
-            },
-            offset: offset,
-            limit : pageSize,
-
-        });
-	*/
-        //Object.assign(baseInfo, dataInfo);
-
         return {totalNum, baseInfo};
     }
 }
