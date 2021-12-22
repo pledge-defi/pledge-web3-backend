@@ -7,8 +7,10 @@ class PledgePoolService extends Service {
         const offset = curPage * pageSize;
 
         const Op = this.app.Sequelize.Op;
-        const baseInfo = await this.ctx.model.PoolBase.findAndCountAll({
+        const poolInfo = await this.ctx.model.PoolBase.findAndCountAll({
+            attributes: ["settleTime", "endTime","interestRate","maxSupply","lendSupply","borrowSupply","martgageRate","lendToken","borrowToken","state","spCoin","jpCoin","autoLiquidateThreshold"],
             include: {
+              attributes: ["settleAmountLend", "settleAmountBorrow", "finishAmountLend", "finishAmountBorrow", "liquidationAmounLend", "liquidationAmounBorrow"]
               model: this.ctx.model.PoolData,
               as: 'pooldata',
             },
@@ -20,8 +22,10 @@ class PledgePoolService extends Service {
             limit : pageSize,
         });
 
-        const totalNum = baseInfo.count;
-        return {totalNum, baseInfo};
+        let pooldata = poolInfo['pooldata'];
+        Object.assign(poolInfo, pooldata);
+
+        return poolInfo;
     }
 }
 
