@@ -12,5 +12,5 @@ module.exports = app => {
 
   // post
   API.post('/search', controller.contract.search);
-  API.post('/debt_token_symbol', controller.debttoken.symbol);
+  API.post('/debt_token_symbol', controller.debttoken.symbols);
 };
