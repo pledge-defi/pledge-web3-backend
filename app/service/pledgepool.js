@@ -10,7 +10,7 @@ class PledgePoolService extends Service {
         const poolInfo = await this.ctx.model.PoolBase.findAndCountAll({
             attributes: ["settleTime", "endTime","interestRate","maxSupply","lendSupply","borrowSupply","martgageRate","lendToken","borrowToken","state","spCoin","jpCoin","autoLiquidateThreshold"],
             include: {
-              attributes: ["settleAmountLend", "settleAmountBorrow", "finishAmountLend", "finishAmountBorrow", "liquidationAmounLend", "liquidationAmounBorrow"]
+              attributes: ["settleAmountLend", "settleAmountBorrow", "finishAmountLend", "finishAmountBorrow", "liquidationAmounLend", "liquidationAmounBorrow"],
               model: this.ctx.model.PoolData,
               as: 'pooldata',
             },
@@ -21,9 +21,6 @@ class PledgePoolService extends Service {
             offset: offset,
             limit : pageSize,
         });
-
-        let pooldata = poolInfo['pooldata'];
-        Object.assign(poolInfo, pooldata);
 
         return poolInfo;
     }
