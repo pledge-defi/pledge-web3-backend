@@ -3,10 +3,10 @@
 const Controller = require('egg').Controller;
 
 class DebtTokenController extends Controller {
-    async symbols() {
+    async debtTokenList() {
       const { ctx, service } = this;
 
-      const symbols = await service.debttoken.symbols();
+      const symbols = await service.debttoken.debtTokenList();
 
       ctx.body = symbols;
     }
