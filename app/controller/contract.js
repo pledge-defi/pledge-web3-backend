@@ -2,6 +2,13 @@
 
 const Controller = require('egg').Controller;
 
+// 错误代码
+const SEARCH_ERROR = 400;
+const SEARCH_SUCCESS = 200;
+
+const MESSAGE_FOUND = "查询成功";
+const MESSAGE_NOT_FOUND = "查询失败";
+
 class ContracteController extends Controller {
   async pool_info() {
     const { ctx, service } = this;
@@ -32,10 +39,23 @@ class ContracteController extends Controller {
 
     const result = await ctx.service.pledgepool.search(poolID, poolStatus, page, pageSize);
     if(!result) {
-        return ctx.setBody('5720', '查询PledgePool失败');
+        const body = {
+          code: SEARCH_ERROR,
+          message: MESSAGE_NOT_FOUND,
+        };
+
+        ctx.body = body;
+
+        return;
     }
-    // ctx.body = (200, '查询成功', result);
-    ctx.body = result;
+
+    const body = {
+      code: SEARCH_SUCCESS,
+      message: MESSAGE_FOUND,
+      data: result,
+    }
+
+    ctx.body = body;
   }
 }
 
