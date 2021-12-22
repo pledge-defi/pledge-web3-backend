@@ -28,6 +28,7 @@ class ContracteController extends Controller {
   async search() {
     const { ctx, service } = this;
     const { poolID, poolStatus, page, pageSize } = ctx.request.body;
+	  console.log('search requst: ', ctx.request.body);
 
     const result = await ctx.service.pledgepool.search(poolID, poolStatus, page, pageSize);
     if(!result) {

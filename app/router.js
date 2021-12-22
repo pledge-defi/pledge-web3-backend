@@ -10,7 +10,7 @@ module.exports = app => {
   // test
   API.get('/poolinfo', controller.contract.pool_info);
 
-  // post
-  API.post('/search', controller.contract.search);
-  API.post('/debt_token_symbol', controller.debttoken.symbols);
+  // pool 
+  API.post('/pool/search', controller.contract.search);
+  API.post('/pool/debtTokenList', controller.debttoken.debtTokenList);
 };
