@@ -10,7 +10,7 @@ const MESSAGE_FOUND = "查询成功";
 const MESSAGE_NOT_FOUND = "查询失败";
 
 class ContracteController extends Controller {
-  async pool_info() {
+  async poolList() {
     const { ctx, service } = this;
 
     const web3 = this.app.web3;

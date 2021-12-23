@@ -7,10 +7,9 @@ module.exports = app => {
   const { router, controller } = app;
   const API = app.router.namespace('/api/v2');
   
-  // test
-  API.get('/poolinfo', controller.contract.pool_info);
 
   // pool 
   API.post('/pool/search', controller.contract.search);
   API.post('/pool/debtTokenList', controller.debttoken.debtTokenList);
+  API.get('/pool/poolinfo', controller.contract.poolList);
 };
