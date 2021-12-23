@@ -7,7 +7,7 @@ class HomeService extends Service {
     // 查询name
     const Op = this.app.Sequelize.Op;
     const admin = await this.ctx.model.Admin.findOne({
-      attributes: ["id", "name", "password"],
+      attributes: ["user_id", "name", "password"],
       where: {
         name: name,
       },
@@ -25,7 +25,7 @@ class HomeService extends Service {
         return null;
     }
 
-    const token = jwt.sign( { userId: admin.id }, "pledge_xxx", {expiresIn: '7d'});
+    const token = jwt.sign( { userId: admin.user_id }, "pledge_xxx", {expiresIn: '7d'});
     if (token) {
         return {
           "token_id": token,

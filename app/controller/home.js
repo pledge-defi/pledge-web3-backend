@@ -15,7 +15,7 @@ class HomeController extends Controller {
     const { ctx } = this;
 
     const { name, password } = ctx.request.body;
-    if name == null || password == null {
+    if (!name || !password) {
       const body = {
         code: HOME_FAILED,
         message: MESSAGE_LOGIN_FAILED,
@@ -44,7 +44,8 @@ class HomeController extends Controller {
     ctx.body = body;
   }
 
-  async logout() {
+  async logout(){
+    const { ctx } = this;
     const body = {
       code: HOME_SUCCESS,
       message: MESSAGE_LOGOUT_SUCCESS,

@@ -8,8 +8,8 @@ module.exports = app => {
   const API = app.router.namespace('/api/v2');
 
   // user
-  API.post('/user/login', controller.contract.search);
-  API.post('/user/logout', controller.contract.search);
+  API.post('/user/login', controller.home.login);
+  API.post('/user/logout', controller.home.logout);
   
   // pool 
   API.post('/pool/search', controller.contract.search);
