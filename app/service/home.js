@@ -25,7 +25,7 @@ class HomeService extends Service {
         return null;
     }
 
-    const token = jwt.sign( { userId: admin.user_id }, "pledge_xxx", {expiresIn: '7d'});
+    const token = jwt.sign( { userId: admin.user_id }, this.app.config.jwtSecret, {expiresIn: '7d'});
     if (token) {
         return {
           "token_id": token,

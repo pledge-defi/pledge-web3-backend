@@ -7,12 +7,14 @@ module.exports = app => {
   const { router, controller } = app;
   const API = app.router.namespace('/api/v2');
 
+  const mAuth   = app.middleware.auth();
+
   // user
   API.post('/user/login', controller.home.login);
-  API.post('/user/logout', controller.home.logout);
+  API.post('/user/logout', mAuth, controller.home.logout);
   
   // pool 
-  API.post('/pool/search', controller.contract.search);
-  API.post('/pool/debtTokenList', controller.debttoken.debtTokenList);
-  API.post('/pool/poolList', controller.contract.poolList);
+  API.post('/pool/search', mAuth, controller.contract.search);
+  API.post('/pool/debtTokenList', mAuth, controller.debttoken.debtTokenList);
+  API.post('/pool/poolList', mAuth, controller.contract.poolList);
 };

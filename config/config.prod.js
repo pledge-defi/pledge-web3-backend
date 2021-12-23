@@ -23,13 +23,14 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
- config.cluster = {
+  config.cluster = {
     listen: {
       path: '',
       port: 7002,
       hostname: '0.0.0.0',
     },
 	};
+  
   config.security = {
     xframe: {
       enable: false,
@@ -39,6 +40,9 @@ module.exports = appInfo => {
       ignoreJSON: false
     },
   };
+
+  config.jwtSecret = 'xxx_pledge_123';
+
   config.sequelize = {
     username: 'root',
     password: '',

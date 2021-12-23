@@ -24,26 +24,29 @@ module.exports = appInfo => {
   };
 
   // BSC env
-  const bscConfig = {
+  config.bscConfig = {
     rpc: "https://data-seed-prebsc-1-s1.binance.org:8545",
   };
 
- config.cluster = {
-        listen: {
-            path: '',
-            port: 7002,
-            hostname: '0.0.0.0',
-        },
-	};
+  config.cluster = {
+    listen: {
+        path: '',
+        port: 7002,
+        hostname: '0.0.0.0',
+    },
+  };
  config.security = {
-  xframe: {
-    enable: false,
-  },
-csrf: {
-            enable: false,
-            ignoreJSON: false
-        },
-};
+    xframe: {
+      enable: false,
+    },
+    csrf: {
+      enable: false,
+      ignoreJSON: false
+    },
+  };
+
+  config.jwtSecret = 'xxx_pledge_123';
+
   config.sequelize = {
     username: 'root',
     password: '',
