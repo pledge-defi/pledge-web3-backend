@@ -11,5 +11,5 @@ module.exports = app => {
   // pool 
   API.post('/pool/search', controller.contract.search);
   API.post('/pool/debtTokenList', controller.debttoken.debtTokenList);
-  API.get('/pool/poolinfo', controller.contract.poolList);
+  API.post('/pool/poolList', controller.contract.poolList);
 };

@@ -15,13 +15,23 @@ class ContracteController extends Controller {
 
     const web3 = this.app.web3;
     const poolLength = await service.contract.length();
+	  console.log('pool length: ', poolLength);
     let poolInfos = [];
-    let index = 0;
+    // 当前DB中的poolIndex
+    let current_index = await this.ctx.model.PoolBase.findOne({
+      order: [['id', 'DESC']],
+      attributes: ["id"],
+      limit: 1,
+    });
+	console.log('current index:', current_index.id);
+	
+	return;
+    let index = current_index.id;
     for (; index < poolLength; index ++) { 
       const baseInfo = await service.contract.baseInfo(index);
       const dataInfo = await service.contract.dataInfo(index);
       const poolInfo = Object.assign(baseInfo, dataInfo);
-      poolInfos.push(poolInfo);
+      // poolInfos.push(poolInfo);
 
       // write to db
       await this.ctx.model.PoolBase.create(baseInfo);
