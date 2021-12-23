@@ -7,6 +7,7 @@ const SEARCH_ERROR = 400;
 const SEARCH_SUCCESS = 200;
 
 const MESSAGE_FOUND = "查询成功";
+const MESSAGE_POOL_LIST_SUCCESS = "获取PoolList成功";
 const MESSAGE_NOT_FOUND = "查询失败";
 
 class ContracteController extends Controller {
@@ -16,21 +17,20 @@ class ContracteController extends Controller {
     const web3 = this.app.web3;
     const poolLength = await service.contract.length();
 	  console.log('pool length: ', poolLength);
-    let poolInfos = [];
+
     // 当前DB中的poolIndex
     let current_index = await this.ctx.model.PoolBase.findOne({
       order: [['id', 'DESC']],
       attributes: ["id"],
       limit: 1,
     });
-	console.log('current index:', current_index.id);
+  	console.log('current index:', current_index.id);
 	
-	return;
     let index = current_index.id;
     for (; index < poolLength; index ++) { 
       const baseInfo = await service.contract.baseInfo(index);
       const dataInfo = await service.contract.dataInfo(index);
-      const poolInfo = Object.assign(baseInfo, dataInfo);
+      // const poolInfo = Object.assign(baseInfo, dataInfo);
       // poolInfos.push(poolInfo);
 
       // write to db
@@ -38,7 +38,12 @@ class ContracteController extends Controller {
       await this.ctx.model.PoolData.create(dataInfo);
     }
 
-    ctx.body = poolInfos;
+    const body = {
+      code: SEARCH_SUCCESS,
+      message: MESSAGE_POOL_LIST_SUCCESS,
+    };
+
+    ctx.body = body;
   }
 
   // 查询 pool
