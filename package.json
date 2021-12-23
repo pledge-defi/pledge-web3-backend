@@ -7,10 +7,12 @@
     "declarations": true
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "egg": "^2.15.1",
     "egg-router-plus": "^2.0.0",
     "egg-scripts": "^2.11.0",
     "egg-sequelize": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "web3": "^1.6.1"
   },

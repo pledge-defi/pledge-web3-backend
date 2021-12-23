@@ -10,7 +10,7 @@ class DebtTokenService extends Service {
 
     const Op = this.app.Sequelize.Op;
     const symbols = await this.ctx.model.DebtToken.findAndCountAll({
-	attributes: ["symbol", "address"],
+      attributes: ["symbol", "address"],
     });
     return symbols;
   }
