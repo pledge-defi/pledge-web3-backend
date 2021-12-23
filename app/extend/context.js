@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 module.exports = {
+    get jwt() {
+      return jwt;
+    },
     get verifyToken() {
         let token = this.request.header.authCode;
         if( token == null || token.length == 0 ) {
