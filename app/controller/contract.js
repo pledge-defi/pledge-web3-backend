@@ -24,18 +24,27 @@ class ContracteController extends Controller {
       attributes: ["id"],
       limit: 1,
     });
-  	console.log('current index:', current_index.id);
+    // console.log('current index:', current_index.id);
 	
-    let index = current_index.id;
+    let index = 0;   
+    if (current_index != null) {
+      index = current_index.id;
+    }
     for (; index < poolLength; index ++) { 
       const baseInfo = await service.contract.baseInfo(index);
-      const dataInfo = await service.contract.dataInfo(index);
+      let dataInfo = await service.contract.dataInfo(index);
       // const poolInfo = Object.assign(baseInfo, dataInfo);
       // poolInfos.push(poolInfo);
 
       // write to db
-      await this.ctx.model.PoolBase.create(baseInfo);
-      await this.ctx.model.PoolData.create(dataInfo);
+      const createdBaseInfo = await this.ctx.model.PoolBase.create(baseInfo);
+      console.log("baseInfo: ", createdBaseInfo);
+      const dataAttributes = {
+	pooldatum_id: createdBaseInfo.id,
+      };
+      const data = Object.assign(dataInfo, dataAttributes);
+	    console.log('dataInfo :', dataInfo);
+      await this.ctx.model.PoolData.create(data);
     }
 
     const body = {

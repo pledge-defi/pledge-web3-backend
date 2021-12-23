@@ -7,6 +7,8 @@ const DEBTTOKENCONTRACT = Symbol('Application#debtTokenContract');
 const abi = require("../abis/PledgePool.json");
 const debt_token_abi = require("../abis/DebtToken.json");
 
+const pledgePoolAddress = "0x5557fa11E31C11FcD966FD6E450a24d82d0d3C4a";
+
 module.exports = {
   get web3() {
     if (!this[WEB3]) {
@@ -18,7 +20,7 @@ module.exports = {
 
   get pledgePoolContract() {
     if (!this[PLEDGEPOOLCONTRACT]) {
-      const contract = new this.web3.eth.Contract(abi, '0x08A5125C84C3DAb4834A28e73A35F4b6d895E7AA');
+      const contract = new this.web3.eth.Contract(abi, pledgePoolAddress);
       this[PLEDGEPOOLCONTRACT] = contract;
     }
     return this[PLEDGEPOOLCONTRACT];
