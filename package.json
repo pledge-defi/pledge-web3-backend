@@ -31,7 +31,7 @@
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-pledge-backend-web3",
     "stop": "egg-scripts stop --title=egg-server-pledge-backend-web3",
-    "dev": "egg-bin dev --port=7002",
+    "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",

@@ -58,10 +58,10 @@ class ContracteController extends Controller {
   // 查询 pool
   async search() {
     const { ctx, service } = this;
-    const { poolID, poolStatus, page, pageSize } = ctx.request.body;
+    const { poolID, state, page, pageSize } = ctx.request.body;
 	  console.log('search requst: ', ctx.request.body);
 
-    const result = await ctx.service.pledgepool.search(poolID, poolStatus, page, pageSize);
+    const result = await ctx.service.pledgepool.search(poolID, state, page, pageSize);
     if(!result) {
         const body = {
           code: SEARCH_ERROR,
