@@ -7,7 +7,8 @@ const DEBTTOKENCONTRACT = Symbol('Application#debtTokenContract');
 const abi = require("../abis/PledgePool.json");
 const debt_token_abi = require("../abis/DebtToken.json");
 
-const pledgePoolAddress = "0x6BAa9219C87992e1663360E1f5f29BD86bFCc3e0";
+//const pledgePoolAddress = "0x6BAa9219C87992e1663360E1f5f29BD86bFCc3e0";
+const pledgePoolAddress = "0x460cD52E2bB8a0547F4fe2ff80cd354CC1A1f43a";
 
 module.exports = {
   get web3() {
