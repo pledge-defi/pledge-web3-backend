@@ -11,6 +11,7 @@
     "cron-parser": "^4.2.1",
     "dotenv": "^10.0.0",
     "egg": "^2.15.1",
+    "egg-cors": "^2.2.3",
     "egg-router-plus": "^2.0.0",
     "egg-scripts": "^2.11.0",
     "egg-sequelize": "^6.0.0",

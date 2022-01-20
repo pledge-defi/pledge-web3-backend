@@ -4,7 +4,7 @@
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  require('dotenv').config();
+  //require('dotenv').config();
   
   const { router, controller } = app;
   const API = app.router.namespace('/api/v2');
