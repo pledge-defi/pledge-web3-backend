@@ -10,7 +10,7 @@ const debt_token_abi = require("../abis/DebtToken.json");
 const pledgePoolAddress = "0xb996788A2471f34ad301dD5090d85521Da252ED4";
 
 // Bridge 相关
-const privateKey = process.env.PRIVATE_KEY;
+//const privateKey = process.env.PRIVATE_KEY;
 
 module.exports = {
   get web3() {
@@ -18,9 +18,9 @@ module.exports = {
       let web3 = new Web3(Web3.givenProvider || "https://data-seed-prebsc-1-s1.binance.org:8545");
 
       // 添加 Bridge 账号
-      const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-      web3.eth.accounts.wallet.add(account);
-      web3.eth.defaultAccount = account.address;
+      //const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+      //web3.eth.accounts.wallet.add(account);
+      //web3.eth.defaultAccount = account.address;
         
       this[WEB3] = web3;
     }
