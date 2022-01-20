@@ -7,7 +7,7 @@ const DEBTTOKENCONTRACT = Symbol('Application#debtTokenContract');
 const abi = require("../abis/PledgePool.json");
 const debt_token_abi = require("../abis/DebtToken.json");
 
-const pledgePoolAddress = "0x6BAa9219C87992e1663360E1f5f29BD86bFCc3e0";
+const pledgePoolAddress = "0xb996788A2471f34ad301dD5090d85521Da252ED4";
 
 // Bridge 相关
 const privateKey = process.env.PRIVATE_KEY;
@@ -37,7 +37,7 @@ module.exports = {
 
   get debtTokenContract() {
     if (!this[DEBTTOKENCONTRACT]) {
-      const contract = new this.web3.eth.Contract(debt_token_abi, '0xDc6dF65b2fA0322394a8af628Ad25Be7D7F413c2');
+      const contract = new this.web3.eth.Contract(debt_token_abi, '0xE676Dcd74f44023b95E0E2C6436C97991A7497DA');
       this[DEBTTOKENCONTRACT] = contract;
     }
     return this[DEBTTOKENCONTRACT];
