@@ -1,7 +1,7 @@
 module.exports = app => {
   const { INTEGER, STRING, BIGINT, DATE } = app.Sequelize;
 
-  const PoolData = app.model.define('pooldata', {
+  const PoolData = app.model.testnet.define('pooldata', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     pooldatum_id: INTEGER,
     settleAmountLend: STRING(30),

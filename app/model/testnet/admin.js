@@ -1,7 +1,7 @@
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
-  const Admin = app.model.define('admin', {
+  const Admin = app.model.testnet.define('admin', {
     user_id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     name: STRING(100),
     password: STRING(100),
