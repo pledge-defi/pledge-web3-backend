@@ -23,6 +23,13 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
+  config.cors = {
+      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+      credentials: true,
+      allowHeaders: ['*'],//['Origin', 'X-Requested-With', 'Content-Type', 'Accept-Version', 'Token'],
+      origin: '*',
+    };
+
   config.cluster = {
     listen: {
       path: '',
