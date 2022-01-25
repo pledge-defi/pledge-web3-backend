@@ -20,8 +20,8 @@ class ContracteController extends Controller {
 
     // 当前DB中的poolIndex
     let current_index = await this.ctx.model.PoolBase.findOne({
-      order: [['id', 'DESC']],
-      attributes: ["id"],
+      order: [['pool_id', 'DESC']],
+      attributes: ["pool_id"],
       limit: 1,
     });
     // console.log('current index:', current_index.id);
