@@ -28,7 +28,8 @@ class ContracteController extends Controller {
 	
     let index = 0;   
     if (current_index != null) {
-      index = current_index.id;
+      // index = current_index.id;
+      index = current_index.pool_id;
     }
     for (; index < poolLength; index ++) { 
       const baseInfo = await service.contract.baseInfo(index);
@@ -37,13 +38,19 @@ class ContracteController extends Controller {
       // poolInfos.push(poolInfo);
 
       // write to db
+      const pool_id = {
+        pool_id: index+1,
+      };
+      const baseData = Object.assign(baseInfo, pool_id);
+      console.log('base info and id:', baseInfo);
       const createdBaseInfo = await this.ctx.model.PoolBase.create(baseInfo);
-      console.log("baseInfo: ", createdBaseInfo);
+      // console.log("baseInfo: ", createdBaseInfo);
       const dataAttributes = {
-	pooldatum_id: createdBaseInfo.id,
+        // pooldatum_id: createdBaseInfo.id,
+        pooldatum_id: createdBaseInfo.pool_id,
       };
       const data = Object.assign(dataInfo, dataAttributes);
-	    console.log('dataInfo :', dataInfo);
+	    // console.log('dataInfo :', dataInfo);
       await this.ctx.model.PoolData.create(data);
     }
 

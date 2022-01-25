@@ -4,6 +4,7 @@ module.exports = app => {
 
   const PoolBase = app.model.define('poolbase', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+    pool_id: INTEGER,
     settleTime: STRING(100),
     endTime: STRING(100),
     interestRate: STRING(100),

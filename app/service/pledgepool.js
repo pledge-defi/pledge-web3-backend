@@ -17,7 +17,7 @@ class PledgePoolService extends Service {
         }
         const Op = this.app.Sequelize.Op;
         const poolInfo = await this.ctx.model.PoolBase.findAndCountAll({
-            attributes: ["settleTime", "endTime","interestRate","maxSupply","lendSupply","borrowSupply","martgageRate","lendToken","borrowToken","state","spCoin","jpCoin","autoLiquidateThreshold"],
+            attributes: ["pool_id", "settleTime", "endTime","interestRate","maxSupply","lendSupply","borrowSupply","martgageRate","lendToken","borrowToken","state","spCoin","jpCoin","autoLiquidateThreshold"],
             include: {
               attributes: ["settleAmountLend", "settleAmountBorrow", "finishAmountLend", "finishAmountBorrow", "liquidationAmounLend", "liquidationAmounBorrow"],
               model: this.ctx.model.PoolData,
@@ -30,6 +30,7 @@ class PledgePoolService extends Service {
             where: condition,
             offset: offset,
             limit : pageSize,
+            order:  [['pool_id', 'DESC']],
         });
 
         return poolInfo;
