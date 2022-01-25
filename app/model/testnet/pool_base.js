@@ -23,7 +23,7 @@ module.exports = app => {
   });
 
   PoolBase.associate = function() {
-    app.model.PoolBase.hasOne(app.model.PoolData, { as: 'pooldata' });
+    app.model.testnet.PoolBase.hasOne(app.model.testnet.PoolData, { as: 'pooldata' });
   }
 
   return PoolBase;

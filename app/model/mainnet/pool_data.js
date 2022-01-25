@@ -15,7 +15,7 @@ module.exports = app => {
   });
 
   PoolData.associate = function() {
-    app.model.PoolData.belongsTo(app.model.PoolBase, { as: 'poolbase', foreignKey: 'pooldatum_id' });
+    app.model.mainnet.PoolData.belongsTo(app.model.mainnet.PoolBase, { as: 'poolbase', foreignKey: 'pooldatum_id' });
   }
 
   return PoolData;
