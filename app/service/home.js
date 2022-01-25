@@ -6,7 +6,7 @@ class HomeService extends Service {
   async login(name, password) {
     // 查询name
     const Op = this.app.Sequelize.Op;
-    const admin = await this.ctx.model.Admin.findOne({
+    const admin = await this.ctx.model.mainnet.Admin.findOne({
       attributes: ["user_id", "name", "password"],
       where: {
         name: name,
