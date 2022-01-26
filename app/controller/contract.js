@@ -48,7 +48,6 @@ class ContracteController extends Controller {
   async poolListTestnet() {
     const { service } = this;
 
-    const web3 = this.app.web3;
     const poolLength = await service.contract.length();
     console.log('pool length: ', poolLength);
 
@@ -62,29 +61,22 @@ class ContracteController extends Controller {
   
     let index = 0;   
     if (current_index != null) {
-      // index = current_index.id;
       index = current_index.pool_id;
     }
     for (; index < poolLength; index ++) { 
       const baseInfo = await service.contract.baseInfo(index);
       let dataInfo = await service.contract.dataInfo(index);
-      // const poolInfo = Object.assign(baseInfo, dataInfo);
-      // poolInfos.push(poolInfo);
 
       // write to db
       const pool_id = {
         pool_id: index+1,
       };
       const baseData = Object.assign(baseInfo, pool_id);
-      console.log('base info and id:', baseInfo);
       const createdBaseInfo = await this.ctx.model.testnet.PoolBase.create(baseInfo);
-      // console.log("baseInfo: ", createdBaseInfo);
       const dataAttributes = {
-        // pooldatum_id: createdBaseInfo.id,
         pooldatum_id: createdBaseInfo.pool_id,
       };
       const data = Object.assign(dataInfo, dataAttributes);
-      // console.log('dataInfo :', dataInfo);
       await this.ctx.model.testnet.PoolData.create(data);
     } 
   }
@@ -92,8 +84,7 @@ class ContracteController extends Controller {
   async poolListMainnet() {
     const { service } = this;
 
-    const web3 = this.app.web3;
-    const poolLength = await service.contract.length();
+    const poolLength = await service.contract.lengthOnMainnet();
     console.log('pool length: ', poolLength);
 
     // 当前DB中的poolIndex
@@ -106,29 +97,24 @@ class ContracteController extends Controller {
   
     let index = 0;   
     if (current_index != null) {
-      // index = current_index.id;
       index = current_index.pool_id;
     }
+
     for (; index < poolLength; index ++) { 
-      const baseInfo = await service.contract.baseInfo(index);
-      let dataInfo = await service.contract.dataInfo(index);
-      // const poolInfo = Object.assign(baseInfo, dataInfo);
-      // poolInfos.push(poolInfo);
+      const baseInfo = await service.contract.baseInfoOnMainnet(index);
+      let dataInfo = await service.contract.dataInfoOnMainnet(index);
 
       // write to db
       const pool_id = {
         pool_id: index+1,
       };
       const baseData = Object.assign(baseInfo, pool_id);
-      console.log('base info and id:', baseInfo);
       const createdBaseInfo = await this.ctx.model.mainnet.PoolBase.create(baseInfo);
-      // console.log("baseInfo: ", createdBaseInfo);
       const dataAttributes = {
-        // pooldatum_id: createdBaseInfo.id,
         pooldatum_id: createdBaseInfo.pool_id,
       };
+
       const data = Object.assign(dataInfo, dataAttributes);
-      // console.log('dataInfo :', dataInfo);
       await this.ctx.model.mainnet.PoolData.create(data);
     } 
   }
