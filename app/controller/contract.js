@@ -15,9 +15,10 @@ class ContracteController extends Controller {
   async poolList() {
     const { ctx, service } = this;
     const { chainID } = ctx.request.body;
+    console.log('poolList request: ', ctx.request.body);
 
     // 无效的chainID
-    if (chainID != 97 || chainID != 56) {
+    if (chainID != 97 && chainID != 56) {
       const body = {
         code: SEARCH_ERROR,
         message: MESSAGE_INVALID_CHAINID,
@@ -29,11 +30,11 @@ class ContracteController extends Controller {
     }
 
     if (chainID == 97) {
-      await self.poolListTestnet();
+      await this.poolListTestnet();
     }
 
     if (chainID == 56) {
-      await self.poolListMainnet();
+      await this.poolListMainnet();
     }
 
     const body = {
@@ -45,6 +46,8 @@ class ContracteController extends Controller {
   }
 
   async poolListTestnet() {
+    const { service } = this;
+
     const web3 = this.app.web3;
     const poolLength = await service.contract.length();
     console.log('pool length: ', poolLength);
@@ -87,6 +90,8 @@ class ContracteController extends Controller {
   }
 
   async poolListMainnet() {
+    const { service } = this;
+
     const web3 = this.app.web3;
     const poolLength = await service.contract.length();
     console.log('pool length: ', poolLength);
