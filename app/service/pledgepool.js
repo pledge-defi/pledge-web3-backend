@@ -16,32 +16,41 @@ class PledgePoolService extends Service {
         if (state) {
           Object.assign(condition, { state: state });
         }
-        const Op = this.app.Sequelize.Op;
 
-        let modelIns = this.ctx.model.testnet;
         if (chainID == 56) {
-          modelIns = this.ctx.model.mainnet;
+            const poolInfo = await this.ctx.model.mainnet.PoolBase.findAndCountAll({
+              attributes: ["pool_id", "settleTime", "endTime","interestRate","maxSupply","lendSupply","borrowSupply","martgageRate","lendToken","borrowToken","state","spCoin","jpCoin","autoLiquidateThreshold"],
+              include: {
+                attributes: ["settleAmountLend", "settleAmountBorrow", "finishAmountLend", "finishAmountBorrow", "liquidationAmounLend", "liquidationAmounBorrow"],
+                model: this.ctx.model.mainnet.PoolData,
+                as: 'pooldata',
+              },
+              where: condition,
+              offset: offset,
+              limit : pageSize,
+              order:  [['pool_id', 'DESC']],
+          });
+
+          return poolInfo;
+        }
+        else if (chainID == 97) {
+            const poolInfo = await this.ctx.model.testnet.PoolBase.findAndCountAll({
+              attributes: ["pool_id", "settleTime", "endTime","interestRate","maxSupply","lendSupply","borrowSupply","martgageRate","lendToken","borrowToken","state","spCoin","jpCoin","autoLiquidateThreshold"],
+              include: {
+                attributes: ["settleAmountLend", "settleAmountBorrow", "finishAmountLend", "finishAmountBorrow", "liquidationAmounLend", "liquidationAmounBorrow"],
+                model: this.ctx.model.testnet.PoolData,
+                as: 'pooldata',
+              },
+              where: condition,
+              offset: offset,
+              limit : pageSize,
+              order:  [['pool_id', 'DESC']],
+          });
+
+          return poolInfo;
         }
 
-        // const poolInfo = await this.ctx.model.PoolBase.findAndCountAll({
-        const poolInfo = await modelIns.PoolBase.findAndCountAll({
-            attributes: ["pool_id", "settleTime", "endTime","interestRate","maxSupply","lendSupply","borrowSupply","martgageRate","lendToken","borrowToken","state","spCoin","jpCoin","autoLiquidateThreshold"],
-            include: {
-              attributes: ["settleAmountLend", "settleAmountBorrow", "finishAmountLend", "finishAmountBorrow", "liquidationAmounLend", "liquidationAmounBorrow"],
-              model: modelIns.PoolData,
-              as: 'pooldata',
-            },
-            // where: {
-            //   lendToken: poolID,
-            //   state: poolStatus,
-            // },
-            where: condition,
-            offset: offset,
-            limit : pageSize,
-            order:  [['pool_id', 'DESC']],
-        });
-
-        return poolInfo;
+        return null;
     }
 }
 

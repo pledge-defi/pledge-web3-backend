@@ -125,6 +125,18 @@ class ContracteController extends Controller {
     const { chainID, poolID, state, page, pageSize } = ctx.request.body;
 	  console.log('search requst: ', ctx.request.body);
 
+    // 无效的chainID
+    if (chainID != 97 && chainID != 56) {
+      const body = {
+        code: SEARCH_ERROR,
+        message: MESSAGE_INVALID_CHAINID,
+      };
+
+      ctx.body = body;
+
+      return;
+    }
+    
     const result = await ctx.service.pledgepool.search(chainID, poolID, state, page, pageSize);
     if(!result) {
         const body = {
