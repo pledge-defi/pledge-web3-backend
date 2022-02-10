@@ -1,6 +1,7 @@
 
+// eslint-disable-next-line strict
 module.exports = app => {
-  const { STRING, INTEGER, DATE, BIGINT } = app.Sequelize;
+  const { STRING, INTEGER, DATE } = app.Sequelize;
 
   const PoolBase = app.model.mainnet.define('poolbase', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
@@ -15,7 +16,7 @@ module.exports = app => {
     lendToken: STRING(100),
     borrowToken: STRING(100),
     state: STRING(30), // 'MATCH, EXECUTION, FINISH, LIQUIDATION, UNDONE'
-    spCoin: STRING(100), 
+    spCoin: STRING(100),
     jpCoin: STRING(100),
     autoLiquidateThreshold: STRING(100),
     created_at: DATE,
@@ -24,7 +25,7 @@ module.exports = app => {
 
   PoolBase.associate = function() {
     app.model.mainnet.PoolBase.hasOne(app.model.mainnet.PoolData, { as: 'pooldata' });
-  }
+  };
 
   return PoolBase;
 };

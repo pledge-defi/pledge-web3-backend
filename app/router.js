@@ -4,18 +4,18 @@
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  //require('dotenv').config();
-  
-  const { router, controller } = app;
+  // require('dotenv').config();
+
+  const { controller } = app;
   const API = app.router.namespace('/api/v2');
 
-  const mAuth   = app.middleware.auth();
+  const mAuth = app.middleware.auth();
 
   // user
   API.post('/user/login', controller.home.login);
   API.post('/user/logout', mAuth, controller.home.logout);
-  
-  // pool 
+
+  // pool
   API.post('/pool/search', mAuth, controller.contract.search);
   API.post('/pool/debtTokenList', mAuth, controller.debttoken.debtTokenList);
   API.post('/pool/poolList', mAuth, controller.contract.poolList);

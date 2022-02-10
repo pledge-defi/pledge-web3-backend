@@ -1,3 +1,4 @@
+// eslint-disable-next-line strict
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 

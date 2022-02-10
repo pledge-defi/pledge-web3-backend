@@ -25,31 +25,31 @@ module.exports = appInfo => {
 
   // BSC env
   config.bscConfig = {
-    rpc: "https://data-seed-prebsc-1-s1.binance.org:8545",
+    rpc: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   };
 
   config.cluster = {
     listen: {
-        path: '',
-        port: 7005,
-        hostname: '0.0.0.0',
+      path: '',
+      port: 7005,
+      hostname: '0.0.0.0',
     },
   };
- config.security = {
+  config.security = {
     xframe: {
       enable: false,
     },
     csrf: {
       enable: false,
-      ignoreJSON: false
+      ignoreJSON: false,
     },
   };
   config.cors = {
-      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
-      credentials: true,
-      allowHeaders: ['*'],//['Origin', 'X-Requested-With', 'Content-Type', 'Accept-Version', 'Token'],
-      origin: '*',
-    };
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+    credentials: true,
+    allowHeaders: [ '*' ], // ['Origin', 'X-Requested-With', 'Content-Type', 'Accept-Version', 'Token'],
+    origin: '*',
+  };
 
   config.jwtSecret = 'xxx_pledge_123';
 
@@ -57,28 +57,26 @@ module.exports = appInfo => {
     datasources: [
       {
         delegate: 'model.testnet',
-        baseDir: 'model/testnet', 
-
-        // username: 'root',
-        user: 'root',
-        password: '',
+        baseDir: 'model/testnet',
+        username: 'pledge',
+        user: 'pledge',
+        password: 'pledge',
         dialect: 'mysql',
-        host: '127.0.0.1',
-        port: '9521',
+        host: '192.168.0.106',
+        port: '3306',
         database: 'pledge',
       },
       {
-        delegate: 'model.mainnet', 
+        delegate: 'model.mainnet',
         baseDir: 'model/mainnet',
-
-        // username: 'root',
-        user: 'root',
-        password: '',
+        username: 'pledgemainnet',
+        user: 'pledgemainnet',
+        password: 'pledgemainnet',
         dialect: 'mysql',
-        host: '127.0.0.1',
-        port: '9521',
+        host: '192.168.0.106',
+        port: '3306',
         database: 'pledgemainnet',
-      }
+      },
     ],
   };
 
