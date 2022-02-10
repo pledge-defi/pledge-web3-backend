@@ -6,10 +6,10 @@ const Controller = require('egg').Controller;
 const SEARCH_ERROR = 400;
 const SEARCH_SUCCESS = 200;
 
-const MESSAGE_FOUND = "查询成功";
-const MESSAGE_POOL_LIST_SUCCESS = "获取PoolList成功";
-const MESSAGE_NOT_FOUND = "查询失败";
-const MESSAGE_INVALID_CHAINID = "无效的chainID";
+const MESSAGE_FOUND = '查询成功';
+const MESSAGE_POOL_LIST_SUCCESS = '获取PoolList成功';
+const MESSAGE_NOT_FOUND = '查询失败';
+const MESSAGE_INVALID_CHAINID = '无效的chainID';
 
 class ContracteController extends Controller {
   async poolList() {
@@ -20,8 +20,7 @@ class ContracteController extends Controller {
     // 无效的chainID
     if (chainID != 97 && chainID != 56) {
       const body = {
-        code: SEARCH_ERROR,
-        message: MESSAGE_INVALID_CHAINID,
+        code: SEARCH_ERROR, message: MESSAGE_INVALID_CHAINID,
       };
 
       ctx.body = body;
@@ -38,8 +37,7 @@ class ContracteController extends Controller {
     }
 
     const body = {
-      code: SEARCH_SUCCESS,
-      message: MESSAGE_POOL_LIST_SUCCESS,
+      code: SEARCH_SUCCESS, message: MESSAGE_POOL_LIST_SUCCESS,
     };
 
     ctx.body = body;
@@ -53,23 +51,21 @@ class ContracteController extends Controller {
 
     // 当前DB中的poolIndex
     let current_index = await this.ctx.model.testnet.PoolBase.findOne({
-      order: [['pool_id', 'DESC']],
-      attributes: ["pool_id"],
-      limit: 1,
+      order: [ [ 'pool_id', 'DESC' ] ], attributes: [ 'pool_id' ], limit: 1,
     });
     // console.log('current index:', current_index.id);
-  
-    let index = 0;   
+
+    let index = 0;
     if (current_index != null) {
       index = current_index.pool_id;
     }
-    for (; index < poolLength; index ++) { 
+    for (; index < poolLength; index++) {
       const baseInfo = await service.contract.baseInfo(index);
       let dataInfo = await service.contract.dataInfo(index);
 
       // write to db
       const pool_id = {
-        pool_id: index+1,
+        pool_id: index + 1,
       };
       const baseData = Object.assign(baseInfo, pool_id);
       const createdBaseInfo = await this.ctx.model.testnet.PoolBase.create(baseInfo);
@@ -78,7 +74,7 @@ class ContracteController extends Controller {
       };
       const data = Object.assign(dataInfo, dataAttributes);
       await this.ctx.model.testnet.PoolData.create(data);
-    } 
+    }
   }
 
   async poolListMainnet() {
@@ -89,24 +85,22 @@ class ContracteController extends Controller {
 
     // 当前DB中的poolIndex
     let current_index = await this.ctx.model.mainnet.PoolBase.findOne({
-      order: [['pool_id', 'DESC']],
-      attributes: ["pool_id"],
-      limit: 1,
+      order: [ [ 'pool_id', 'DESC' ] ], attributes: [ 'pool_id' ], limit: 1,
     });
     // console.log('current index:', current_index.id);
-  
-    let index = 0;   
+
+    let index = 0;
     if (current_index != null) {
       index = current_index.pool_id;
     }
 
-    for (; index < poolLength; index ++) { 
+    for (; index < poolLength; index++) {
       const baseInfo = await service.contract.baseInfoOnMainnet(index);
       let dataInfo = await service.contract.dataInfoOnMainnet(index);
 
       // write to db
       const pool_id = {
-        pool_id: index+1,
+        pool_id: index + 1,
       };
       const baseData = Object.assign(baseInfo, pool_id);
       const createdBaseInfo = await this.ctx.model.mainnet.PoolBase.create(baseInfo);
@@ -116,44 +110,40 @@ class ContracteController extends Controller {
 
       const data = Object.assign(dataInfo, dataAttributes);
       await this.ctx.model.mainnet.PoolData.create(data);
-    } 
+    }
   }
 
   // 查询 pool
   async search() {
     const { ctx, service } = this;
     const { chainID, poolID, state, page, pageSize } = ctx.request.body;
-	  console.log('search requst: ', ctx.request.body);
+    console.log('search requst: ', ctx.request.body);
 
     // 无效的chainID
     if (chainID != 97 && chainID != 56) {
       const body = {
-        code: SEARCH_ERROR,
-        message: MESSAGE_INVALID_CHAINID,
+        code: SEARCH_ERROR, message: MESSAGE_INVALID_CHAINID,
       };
 
       ctx.body = body;
 
       return;
     }
-    
+
     const result = await ctx.service.pledgepool.search(chainID, poolID, state, page, pageSize);
-    if(!result) {
-        const body = {
-          code: SEARCH_ERROR,
-          message: MESSAGE_NOT_FOUND,
-        };
+    if (!result) {
+      const body = {
+        code: SEARCH_ERROR, message: MESSAGE_NOT_FOUND,
+      };
 
-        ctx.body = body;
+      ctx.body = body;
 
-        return;
+      return;
     }
 
     const body = {
-      code: SEARCH_SUCCESS,
-      message: MESSAGE_FOUND,
-      data: result,
-    }
+      code: SEARCH_SUCCESS, message: MESSAGE_FOUND, data: result,
+    };
 
     ctx.body = body;
   }
