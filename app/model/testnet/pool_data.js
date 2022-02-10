@@ -1,5 +1,6 @@
+// eslint-disable-next-line strict
 module.exports = app => {
-  const { INTEGER, STRING, BIGINT, DATE } = app.Sequelize;
+  const { INTEGER, STRING, DATE } = app.Sequelize;
 
   const PoolData = app.model.testnet.define('pooldata', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
@@ -16,7 +17,7 @@ module.exports = app => {
 
   PoolData.associate = function() {
     app.model.testnet.PoolData.belongsTo(app.model.testnet.PoolBase, { as: 'poolbase', foreignKey: 'pooldatum_id' });
-  }
+  };
 
   return PoolData;
 };

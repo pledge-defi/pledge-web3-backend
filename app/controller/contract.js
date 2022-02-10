@@ -13,12 +13,12 @@ const MESSAGE_INVALID_CHAINID = '无效的chainID';
 
 class ContracteController extends Controller {
   async poolList() {
-    const { ctx, service } = this;
+    const { ctx } = this;
     const { chainID } = ctx.request.body;
     console.log('poolList request: ', ctx.request.body);
 
     // 无效的chainID
-    if (chainID != 97 && chainID != 56) {
+    if (chainID !== 97 && chainID !== 56) {
       const body = {
         code: SEARCH_ERROR, message: MESSAGE_INVALID_CHAINID,
       };
@@ -28,11 +28,11 @@ class ContracteController extends Controller {
       return;
     }
 
-    if (chainID == 97) {
+    if (chainID === 97) {
       await this.poolListTestnet();
     }
 
-    if (chainID == 56) {
+    if (chainID === 56) {
       await this.poolListMainnet();
     }
 
@@ -50,8 +50,8 @@ class ContracteController extends Controller {
     console.log('pool length: ', poolLength);
 
     // 当前DB中的poolIndex
-    let current_index = await this.ctx.model.testnet.PoolBase.findOne({
-      order: [ [ 'pool_id', 'DESC' ] ], attributes: [ 'pool_id' ], limit: 1,
+    const current_index = await this.ctx.model.testnet.PoolBase.findOne({
+      order: [[ 'pool_id', 'DESC' ]], attributes: [ 'pool_id' ], limit: 1,
     });
     // console.log('current index:', current_index.id);
 
@@ -61,13 +61,13 @@ class ContracteController extends Controller {
     }
     for (; index < poolLength; index++) {
       const baseInfo = await service.contract.baseInfo(index);
-      let dataInfo = await service.contract.dataInfo(index);
+      const dataInfo = await service.contract.dataInfo(index);
 
       // write to db
       const pool_id = {
         pool_id: index + 1,
       };
-      const baseData = Object.assign(baseInfo, pool_id);
+      Object.assign(baseInfo, pool_id);
       const createdBaseInfo = await this.ctx.model.testnet.PoolBase.create(baseInfo);
       const dataAttributes = {
         pooldatum_id: createdBaseInfo.pool_id,
@@ -84,8 +84,8 @@ class ContracteController extends Controller {
     console.log('pool length: ', poolLength);
 
     // 当前DB中的poolIndex
-    let current_index = await this.ctx.model.mainnet.PoolBase.findOne({
-      order: [ [ 'pool_id', 'DESC' ] ], attributes: [ 'pool_id' ], limit: 1,
+    const current_index = await this.ctx.model.mainnet.PoolBase.findOne({
+      order: [[ 'pool_id', 'DESC' ]], attributes: [ 'pool_id' ], limit: 1,
     });
     // console.log('current index:', current_index.id);
 
@@ -96,13 +96,13 @@ class ContracteController extends Controller {
 
     for (; index < poolLength; index++) {
       const baseInfo = await service.contract.baseInfoOnMainnet(index);
-      let dataInfo = await service.contract.dataInfoOnMainnet(index);
+      const dataInfo = await service.contract.dataInfoOnMainnet(index);
 
       // write to db
       const pool_id = {
         pool_id: index + 1,
       };
-      const baseData = Object.assign(baseInfo, pool_id);
+      Object.assign(baseInfo, pool_id);
       const createdBaseInfo = await this.ctx.model.mainnet.PoolBase.create(baseInfo);
       const dataAttributes = {
         pooldatum_id: createdBaseInfo.pool_id,
@@ -115,12 +115,12 @@ class ContracteController extends Controller {
 
   // 查询 pool
   async search() {
-    const { ctx, service } = this;
+    const { ctx } = this;
     const { chainID, poolID, state, page, pageSize } = ctx.request.body;
     console.log('search requst: ', ctx.request.body);
 
     // 无效的chainID
-    if (chainID != 97 && chainID != 56) {
+    if (chainID !== 97 && chainID !== 56) {
       const body = {
         code: SEARCH_ERROR, message: MESSAGE_INVALID_CHAINID,
       };

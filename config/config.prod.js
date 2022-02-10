@@ -24,11 +24,11 @@ module.exports = appInfo => {
   };
 
   config.cors = {
-      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
-      credentials: true,
-      allowHeaders: ['*'],//['Origin', 'X-Requested-With', 'Content-Type', 'Accept-Version', 'Token'],
-      origin: '*',
-    };
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+    credentials: true,
+    allowHeaders: [ '*' ], // ['Origin', 'X-Requested-With', 'Content-Type', 'Accept-Version', 'Token'],
+    origin: '*',
+  };
 
   config.cluster = {
     listen: {
@@ -36,15 +36,15 @@ module.exports = appInfo => {
       port: 7002,
       hostname: '0.0.0.0',
     },
-	};
-  
+  };
+
   config.security = {
     xframe: {
       enable: false,
     },
     csrf: {
       enable: false,
-      ignoreJSON: false
+      ignoreJSON: false,
     },
   };
 
@@ -57,11 +57,11 @@ module.exports = appInfo => {
         baseDir: 'model/testnet',
 
         // username: 'root',
-        user: 'root',
-        password: '',
+        user: 'pledge',
+        password: 'pledge',
         dialect: 'mysql',
-        host: '127.0.0.1',
-        port: '9521',
+        host: '192.168.0.106',
+        port: '3306',
         database: 'pledge',
       },
       {
@@ -69,13 +69,13 @@ module.exports = appInfo => {
         baseDir: 'model/mainnet',
 
         // username: 'root',
-        user: 'root',
-        password: '',
+        user: 'pledgemainnet',
+        password: 'pledgemainnet',
         dialect: 'mysql',
-        host: '127.0.0.1',
-        port: '9521',
+        host: '192.168.0.106',
+        port: '3306',
         database: 'pledgemainnet',
-      }
+      },
     ],
   };
 
