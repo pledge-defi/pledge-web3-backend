@@ -10,7 +10,7 @@ module.exports = app => {
     updated_at: DATE,
   },
   {
-    freezeTableName: true // 不自动将表名添加复数
+    freezeTableName: true, // 不自动将表名添加复数
   }
   );
 

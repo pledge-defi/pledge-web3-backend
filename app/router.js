@@ -19,4 +19,9 @@ module.exports = app => {
   API.post('/pool/search', mAuth, controller.contract.search);
   API.post('/pool/debtTokenList', mAuth, controller.debttoken.debtTokenList);
   API.post('/pool/poolList', mAuth, controller.contract.poolList);
+
+  // multi-sign
+  API.post('/pool/setMultiSign', mAuth, controller.contract.setMultiSign);
+  API.get('/pool/getMultiSign', mAuth, controller.contract.getMultiSign);
+
 };

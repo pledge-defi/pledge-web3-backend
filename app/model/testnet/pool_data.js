@@ -5,6 +5,7 @@ module.exports = app => {
   const PoolData = app.model.testnet.define('pooldata', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     pooldatum_id: INTEGER,
+    chain_id: STRING(100),
     settleAmountLend: STRING(30),
     settleAmountBorrow: STRING(30),
     finishAmountLend: STRING(30),

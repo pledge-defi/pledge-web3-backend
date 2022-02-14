@@ -44,40 +44,16 @@ module.exports = appInfo => {
       ignoreJSON: false,
     },
   };
-  config.cors = {
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
-    credentials: true,
-    allowHeaders: [ '*' ], // ['Origin', 'X-Requested-With', 'Content-Type', 'Accept-Version', 'Token'],
-    origin: '*',
-  };
 
   config.jwtSecret = 'xxx_pledge_123';
 
   config.sequelize = {
-    datasources: [
-      {
-        delegate: 'model.testnet',
-        baseDir: 'model/testnet',
-        username: 'root',
-        user: 'root',
-        password: '',
-        dialect: 'mysql',
-        host: '127.0.0.1',
-        port: '9521',
-        database: 'pledge',
-      },
-      {
-        delegate: 'model.mainnet',
-        baseDir: 'model/mainnet',
-        username: 'root',
-        user: 'root',
-        password: '',
-        dialect: 'mysql',
-        host: '127.0.0.1',
-        port: '9521',
-        database: 'pledgemainnet',
-      },
-    ],
+    username: 'root',
+    password: '',
+    dialect: 'mysql',
+    host: '127.0.0.1',
+    port: '9521',
+    database: 'pledge',
   };
 
   return {

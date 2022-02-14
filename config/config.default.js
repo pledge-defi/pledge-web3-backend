@@ -48,12 +48,30 @@ module.exports = appInfo => {
   config.jwtSecret = 'xxx_pledge_123';
 
   config.sequelize = {
-    username: 'root',
-    password: '',
-    dialect: 'mysql',
-    host: '127.0.0.1',
-    port: '9521',
-    database: 'pledge',
+    datasources: [
+      {
+        delegate: 'model.testnet',
+        baseDir: 'model/testnet',
+        username: 'root',
+        user: 'root',
+        password: '',
+        dialect: 'mysql',
+        host: '127.0.0.1',
+        port: '9521',
+        database: 'pledge',
+      },
+      {
+        delegate: 'model.mainnet',
+        baseDir: 'model/mainnet',
+        username: 'root',
+        user: 'root',
+        password: '',
+        dialect: 'mysql',
+        host: '127.0.0.1',
+        port: '9521',
+        database: 'pledgemainnet',
+      },
+    ],
   };
 
   return {

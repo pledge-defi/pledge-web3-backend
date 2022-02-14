@@ -23,18 +23,21 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
-  // BSC env
-  config.bscConfig = {
-    rpc: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+  config.cors = {
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+    credentials: true,
+    allowHeaders: [ '*' ], // ['Origin', 'X-Requested-With', 'Content-Type', 'Accept-Version', 'Token'],
+    origin: '*',
   };
 
   config.cluster = {
     listen: {
       path: '',
-      port: 7005,
+      port: 7002,
       hostname: '0.0.0.0',
     },
   };
+
   config.security = {
     xframe: {
       enable: false,
@@ -44,12 +47,6 @@ module.exports = appInfo => {
       ignoreJSON: false,
     },
   };
-  config.cors = {
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
-    credentials: true,
-    allowHeaders: [ '*' ], // ['Origin', 'X-Requested-With', 'Content-Type', 'Accept-Version', 'Token'],
-    origin: '*',
-  };
 
   config.jwtSecret = 'xxx_pledge_123';
 
@@ -58,27 +55,30 @@ module.exports = appInfo => {
       {
         delegate: 'model.testnet',
         baseDir: 'model/testnet',
-        username: 'root',
-        user: 'root',
-        password: '',
+
+        // username: 'root',
+        user: 'pledge',
+        password: 'pledge',
         dialect: 'mysql',
-        host: '127.0.0.1',
-        port: '9521',
+        host: '192.168.0.106',
+        port: '3306',
         database: 'pledge',
       },
       {
         delegate: 'model.mainnet',
         baseDir: 'model/mainnet',
-        username: 'root',
-        user: 'root',
-        password: '',
+
+        // username: 'root',
+        user: 'pledgemainnet',
+        password: 'pledgemainnet',
         dialect: 'mysql',
-        host: '127.0.0.1',
-        port: '9521',
+        host: '192.168.0.106',
+        port: '3306',
         database: 'pledgemainnet',
       },
     ],
   };
+
 
   return {
     ...config,

@@ -18,6 +18,7 @@ module.exports = app => {
     state: STRING(30), // 'MATCH, EXECUTION, FINISH, LIQUIDATION, UNDONE'
     spCoin: STRING(100),
     jpCoin: STRING(100),
+    chain_id: STRING(100),
     autoLiquidateThreshold: STRING(100),
     created_at: DATE,
     updated_at: DATE,

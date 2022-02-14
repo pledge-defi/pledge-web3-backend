@@ -10,8 +10,10 @@ const MESSAGE_FOUND = '查询成功';
 const MESSAGE_POOL_LIST_SUCCESS = '获取PoolList成功';
 const MESSAGE_NOT_FOUND = '查询失败';
 const MESSAGE_INVALID_CHAINID = '无效的chainID';
+const MESSAGE_SUCCESS = 'success';
 
 class ContracteController extends Controller {
+
   async poolList() {
     const { ctx } = this;
     const { chainID } = ctx.request.body;
@@ -111,6 +113,93 @@ class ContracteController extends Controller {
       const data = Object.assign(dataInfo, dataAttributes);
       await this.ctx.model.mainnet.PoolData.create(data);
     }
+  }
+
+  async setMultiSign() {
+    const { ctx } = this;
+    const { chain_id } = ctx.request.body;
+    console.log('poolList request: ', ctx.request.body);
+
+    // invalid chainID
+    if (chain_id !== 97 && chain_id !== 56) {
+      const body = {
+        code: SEARCH_ERROR, message: MESSAGE_INVALID_CHAINID,
+      };
+      ctx.body = body;
+      return;
+    }
+
+    const multiSign = await this.ctx.model.mainnet.PoolMultiSign.findOne({
+      where: { chain_id },
+    });
+
+    const data = {
+      chain_id: ctx.request.body.chain_id,
+      p_name: ctx.request.body.p_name,
+      _spToken: ctx.request.body._spToken,
+      jp_name: ctx.request.body.jp_name,
+      _jpToken: ctx.request.body._jpToken,
+      sp_address: ctx.request.body.sp_address,
+      jp_address: ctx.request.body.jp_address,
+      spHash: ctx.request.body.spHash,
+      jpHash: ctx.request.body.jpHash,
+      multi_sign_account: ctx.request.body.multi_sign_account,
+    };
+
+    if (multiSign != null) {
+      await this.ctx.model.mainnet.PoolMultiSign.update(data, { where: { chain_id } });
+    } else {
+      await this.ctx.model.mainnet.PoolMultiSign.create(data);
+    }
+
+    const body = {
+      code: SEARCH_SUCCESS, message: MESSAGE_SUCCESS,
+    };
+
+    ctx.body = body;
+  }
+
+  async getMultiSign() {
+    const { ctx } = this;
+    const { chain_id } = ctx.request.body;
+    console.log('poolList request: ', ctx.request.body);
+
+    // invalid chainID
+    if (chain_id !== 97 && chain_id !== 56) {
+      const body = {
+        code: SEARCH_ERROR, message: MESSAGE_INVALID_CHAINID,
+      };
+      ctx.body = body;
+      return;
+    }
+    const multiSign = await this.ctx.model.mainnet.PoolMultiSign.findOne({
+      where: { chain_id },
+    });
+    let res;
+    res = {};
+    if (multiSign != null) {
+
+      const dataValues = multiSign.dataValues;
+      res = {
+        chain_id: dataValues.chain_id,
+        p_name: dataValues.p_name,
+        _spToken: dataValues._spToken,
+        jp_name: dataValues.jp_name,
+        _jpToken: dataValues._jpToken,
+        sp_address: dataValues.sp_address,
+        jp_address: dataValues.jp_address,
+        spHash: dataValues.spHash,
+        jpHash: dataValues.jpHash,
+        multi_sign_account: dataValues.multi_sign_account,
+      };
+    }
+
+    const body = {
+      code: SEARCH_SUCCESS, message: MESSAGE_SUCCESS,
+      data: res,
+    };
+
+    ctx.body = body;
   }
 
   // 查询 pool
