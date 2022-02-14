@@ -7,7 +7,7 @@ module.exports = app => {
     {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
       chain_id: INTEGER,
-      p_name: STRING(100),
+      sp_name: STRING(100),
       _spToken: STRING(100),
       jp_name: STRING(100),
       _jpToken: STRING(100),

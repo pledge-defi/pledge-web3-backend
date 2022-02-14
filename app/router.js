@@ -22,6 +22,6 @@ module.exports = app => {
 
   // multi-sign
   API.post('/pool/setMultiSign', mAuth, controller.contract.setMultiSign);
-  API.get('/pool/getMultiSign', mAuth, controller.contract.getMultiSign);
+  API.post('/pool/getMultiSign', mAuth, controller.contract.getMultiSign);
 
 };

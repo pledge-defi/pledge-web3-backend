@@ -53,7 +53,7 @@ class ContracteController extends Controller {
 
     // 当前DB中的poolIndex
     const current_index = await this.ctx.model.testnet.PoolBase.findOne({
-      order: [[ 'pool_id', 'DESC' ]], attributes: [ 'pool_id' ], limit: 1,
+      order: [ [ 'pool_id', 'DESC' ] ], attributes: [ 'pool_id' ], limit: 1,
     });
     // console.log('current index:', current_index.id);
 
@@ -87,7 +87,7 @@ class ContracteController extends Controller {
 
     // 当前DB中的poolIndex
     const current_index = await this.ctx.model.mainnet.PoolBase.findOne({
-      order: [[ 'pool_id', 'DESC' ]], attributes: [ 'pool_id' ], limit: 1,
+      order: [ [ 'pool_id', 'DESC' ] ], attributes: [ 'pool_id' ], limit: 1,
     });
     // console.log('current index:', current_index.id);
 
@@ -129,13 +129,13 @@ class ContracteController extends Controller {
       return;
     }
 
-    const multiSign = await this.ctx.model.mainnet.PoolMultiSign.findOne({
+    await this.ctx.model.mainnet.PoolMultiSign.destroy({
       where: { chain_id },
     });
 
     const data = {
       chain_id: ctx.request.body.chain_id,
-      p_name: ctx.request.body.p_name,
+      sp_name: ctx.request.body.sp_name,
       _spToken: ctx.request.body._spToken,
       jp_name: ctx.request.body.jp_name,
       _jpToken: ctx.request.body._jpToken,
@@ -143,14 +143,20 @@ class ContracteController extends Controller {
       jp_address: ctx.request.body.jp_address,
       spHash: ctx.request.body.spHash,
       jpHash: ctx.request.body.jpHash,
-      multi_sign_account: ctx.request.body.multi_sign_account,
+      multi_sign_account: JSON.stringify(ctx.request.body.multi_sign_account),
     };
 
-    if (multiSign != null) {
-      await this.ctx.model.mainnet.PoolMultiSign.update(data, { where: { chain_id } });
-    } else {
-      await this.ctx.model.mainnet.PoolMultiSign.create(data);
-    }
+    // if (multiSign != null) {
+    //   let a;
+    //   // eslint-disable-next-line prefer-const
+    //   a = await this.ctx.model.mainnet.PoolMultiSign.update(data, { where: { chain_id } });
+    //   console.log(a, 111);
+    // } else {
+    let bb;
+    // eslint-disable-next-line prefer-const
+    bb = await this.ctx.model.mainnet.PoolMultiSign.create(data);
+    console.log(bb, 222);
+    // }
 
     const body = {
       code: SEARCH_SUCCESS, message: MESSAGE_SUCCESS,
@@ -182,7 +188,7 @@ class ContracteController extends Controller {
       const dataValues = multiSign.dataValues;
       res = {
         chain_id: dataValues.chain_id,
-        p_name: dataValues.p_name,
+        sp_name: dataValues.sp_name,
         _spToken: dataValues._spToken,
         jp_name: dataValues.jp_name,
         _jpToken: dataValues._jpToken,
@@ -190,7 +196,7 @@ class ContracteController extends Controller {
         jp_address: dataValues.jp_address,
         spHash: dataValues.spHash,
         jpHash: dataValues.jpHash,
-        multi_sign_account: dataValues.multi_sign_account,
+        multi_sign_account: JSON.parse(dataValues.multi_sign_account),
       };
     }
 

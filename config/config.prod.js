@@ -44,11 +44,11 @@ module.exports = appInfo => {
   config.jwtSecret = 'xxx_pledge_123';
 
   config.sequelize = {
-    username: 'root',
+    username: 'pledge',
     password: '',
     dialect: 'mysql',
     host: '127.0.0.1',
-    port: '9521',
+    port: '3306',
     database: 'pledge',
   };
 
