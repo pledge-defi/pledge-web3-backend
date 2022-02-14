@@ -134,7 +134,7 @@
         }
       }
     },
-    "/pool/setMultiSign:": {
+    "/pool/setMultiSign": {
       "post": {
         "tags": [
           "pool"
@@ -172,7 +172,7 @@
         }
       }
     },
-    "/pool/getMultiSign:": {
+    "/pool/getMultiSign": {
       "post": {
         "tags": [
           "pool"
@@ -199,6 +199,82 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/GetMultiSignResponse"
+            }
+          },
+          "400": {
+            "description": "Pool not found",
+            "schema": {
+              "$ref": "#/definitions/SearchError"
+            }
+          }
+        }
+      }
+    },
+    "/pool/search": {
+      "post": {
+        "tags": [
+          "pool"
+        ],
+        "summary": "Get pool by conditions",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/SearchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/SearchResponse"
+            }
+          },
+          "400": {
+            "description": "Pool not found",
+            "schema": {
+              "$ref": "#/definitions/SearchError"
+            }
+          }
+        }
+      }
+    },
+    "/pool/poolList": {
+      "post": {
+        "tags": [
+          "pool"
+        ],
+        "summary": "Notice Server to get pool list",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/PoolListRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/SearchResponse"
             }
           },
           "400": {
