@@ -2,7 +2,7 @@
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
-  const PoolMultiSign = app.model.mainnet.define(
+  return app.model.mainnet.define(
     'multi_sign',
     {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
@@ -20,10 +20,6 @@ module.exports = app => {
       updated_at: DATE,
     },
     { freezeTableName: true },
-    // {
-    //   // 排除密码，不返回密码
-    //   exclude: [ 'created_at', 'updated_at', 'id', 'createdAt', 'updatedAt' ],
-    // },
     {
       timestamps: false,
       // 默认作用域
@@ -34,7 +30,5 @@ module.exports = app => {
         },
       },
     });
-
-  return PoolMultiSign;
 };
 

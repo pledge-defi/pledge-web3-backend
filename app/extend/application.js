@@ -49,8 +49,7 @@ module.exports = {
 
   get pledgePoolContract() {
     if (!this[PLEDGEPOOLCONTRACT]) {
-      const contract = new this.web3.eth.Contract(abi, pledgePoolAddress);
-      this[PLEDGEPOOLCONTRACT] = contract;
+      this[PLEDGEPOOLCONTRACT] = new this.web3.eth.Contract(abi, pledgePoolAddress);
     }
     return this[PLEDGEPOOLCONTRACT];
   },

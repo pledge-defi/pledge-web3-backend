@@ -350,7 +350,7 @@
         "chain_id": {
           "type": "string"
         },
-        "p_name": {
+        "sp_name": {
           "type": "string"
         },
         "_spToken": {
@@ -444,7 +444,7 @@
         "chain_id": {
           "type": "string"
         },
-        "p_name": {
+        "sp_name": {
           "type": "string"
         },
         "_spToken": {
