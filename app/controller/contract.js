@@ -83,7 +83,6 @@ class ContracteController extends Controller {
     const { service } = this;
 
     const poolLength = await service.contract.lengthOnMainnet();
-    console.log('pool length: ', poolLength);
 
     // 当前DB中的poolIndex
     const current_index = await this.ctx.model.mainnet.PoolBase.findOne({
