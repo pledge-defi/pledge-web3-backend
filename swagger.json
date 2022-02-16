@@ -117,12 +117,22 @@
           "application/xml",
           "application/json"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/DebtTokenListRequest"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/DebtTokenList"
+              "$ref": "#/definitions/DebtTokenListResponse"
             }
           },
           "400": {
@@ -291,18 +301,62 @@
     "LoginRequest": {
       "type": "object",
       "required": [
-        "name",
-        "password"
+        "chain_id"
       ],
       "properties": {
-        "name": {
-          "type": "string"
-        },
-        "password": {
+        "chain_id": {
           "type": "string"
         }
       }
     },
+    "DebtTokenListRequest": {
+      "type": "object",
+      "required": [
+        "chain_id"
+      ],
+      "properties": {
+        "chain_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "DebtTokenListResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/DebtTokenListData"
+        }
+      }
+    },
+    "DebtTokenListData": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "$ref": "#/definitions/DebtTokenListResData"
+        }
+      }
+    },
+    "DebtTokenListResData": {
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "chain_id": {
+          "type": "integer"
+        }
+      }
+    },
+
     "LoginResponse": {
       "type": "object",
       "properties": {
@@ -424,20 +478,6 @@
         }
       }
     },
-    "DebtTokenList": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer"
-        },
-        "message": {
-          "type": "string"
-        },
-        "data": {
-          "$ref": "#/definitions/DebtTokenData"
-        }
-      }
-    },
     "GetMultiSignData": {
       "type": "object",
       "properties": {
@@ -474,20 +514,6 @@
         }
       }
     },
-    "DebtTokenData": {
-      "type": "object",
-      "properties": {
-        "count": {
-          "type": "integer"
-        },
-        "rows": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Symbol"
-          }
-        }
-      }
-    },
     "DebtTokenError": {
       "type": "object",
       "properties": {
@@ -499,25 +525,14 @@
         }
       }
     },
-    "Symbol": {
-      "type": "object",
-      "properties": {
-        "symbol": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        }
-      }
-    },
     "SearchRequest": {
       "type": "object",
       "properties": {
         "chainID": {
           "type": "string"
         },
-        "poolID": {
-          "type": "integer"
+        "lend_token_symbol": {
+          "type": "string"
         },
         "state": {
           "type": "string"
