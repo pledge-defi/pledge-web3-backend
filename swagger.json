@@ -626,6 +626,12 @@
         "borrowToken": {
           "type": "string"
         },
+        "lend_token_symbol": {
+          "type": "string"
+        },
+        "borrow_token_symbol": {
+          "type": "string"
+        },
         "state": {
           "type": "string"
         },
