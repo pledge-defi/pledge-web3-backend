@@ -330,7 +330,10 @@
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/DebtTokenListData"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DebtTokenListResData"
+          }
         }
       }
     },
@@ -356,7 +359,6 @@
         }
       }
     },
-
     "LoginResponse": {
       "type": "object",
       "properties": {
