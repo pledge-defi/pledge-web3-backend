@@ -12,9 +12,9 @@ const DEBTTOKENCONTRACT = Symbol('Application#debtTokenContract');
 const abi = require('../abis/PledgePool.json');
 const debt_token_abi = require('../abis/DebtToken.json');
 
-// const pledgePoolAddress = '0xb996788A2471f34ad301dD5090d85521Da252ED4'; // v21
-const pledgePoolAddress = '0xb996788A2471f34ad301dD5090d85521Da252ED4'; // v22
-const pledgePoolAddressMainnet = '0x216f718A983FCCb462b338FA9c60f2A89199490c';
+const pledgePoolAddress = '0xb996788A2471f34ad301dD5090d85521Da252ED4'; // v21
+// const pledgePoolAddress = '0x216f718A983FCCb462b338FA9c60f2A89199490c'; // v22
+const pledgePoolAddressMainnet = '0x78CE5055149Dc30755612209f9d9A98f36fb022E';
 
 // Bridge 相关
 // const privateKey = process.env.PRIVATE_KEY;
