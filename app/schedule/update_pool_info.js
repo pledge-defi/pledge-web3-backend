@@ -4,7 +4,7 @@ const Subscription = require('egg').Subscription;
 class UpdatePoolInfo extends Subscription {
   static get schedule() {
     return {
-      interval: '10m', // duration
+      interval: '3m', // duration
       type: 'all', //  worker
     };
   }
